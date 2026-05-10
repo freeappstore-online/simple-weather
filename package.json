@@ -1,0 +1,11 @@
+{
+  "name": "simple-weather",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @simple-weather/web dev",
+    "build": "pnpm --filter @simple-weather/web build",
+    "preview": "pnpm --filter @simple-weather/web preview",
+    "typecheck": "pnpm --filter @simple-weather/web exec tsc -b",
+    "test": "pnpm --filter @simple-weather/web test"
+  }
+}
