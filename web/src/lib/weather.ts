@@ -43,6 +43,7 @@ export interface GeoResult {
 }
 
 export interface CurrentWeather {
+  time: string; // location-local ISO time, e.g. "2026-11-25T22:15"
   temperature: number;
   windspeed: number;
   weathercode: number;
@@ -99,6 +100,7 @@ export async function fetchWeather(lat: number, lon: number, unit: "celsius" | "
   const data = await res.json();
   return {
     current: {
+      time: data.current.time,
       temperature: data.current.temperature_2m,
       windspeed: data.current.wind_speed_10m,
       weathercode: data.current.weather_code,

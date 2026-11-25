@@ -3,22 +3,17 @@ import { getWeatherInfo, type HourlyForecast as HourlyData } from "../lib/weathe
 
 interface Props {
   hourly: HourlyData;
+  currentTime: string;
   unit: "celsius" | "fahrenheit";
 }
 
-export function HourlyForecast({ hourly, unit }: Props) {
+export function HourlyForecast({ hourly, currentTime, unit }: Props) {
   const tempSymbol = unit === "fahrenheit" ? "°F" : "°C";
 
   const hours = useMemo(() => {
-    const now = new Date();
-    const currentHour = now.getHours();
-    const todayStr = now.toISOString().slice(0, 10);
-
-    // Find the index of the current hour
-    const startIdx = hourly.time.findIndex((t) => {
-      const d = new Date(t);
-      return d.toISOString().slice(0, 10) === todayStr && d.getHours() === currentHour;
-    });
+    // Times are location-local ("2026-11-25T22:00"); match the location's current hour
+    const currentHour = currentTime.slice(0, 13);
+    const startIdx = hourly.time.findIndex((t) => t.slice(0, 13) === currentHour);
 
     if (startIdx === -1) return [];
 
@@ -33,7 +28,7 @@ export function HourlyForecast({ hourly, unit }: Props) {
         precip: hourly.precipitation_probability[idx],
       };
     }).filter(Boolean);
-  }, [hourly]);
+  }, [hourly, currentTime]);
 
   return (
     <div

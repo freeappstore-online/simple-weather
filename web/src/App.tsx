@@ -200,7 +200,7 @@ export default function App() {
                 }
                 unit={state.unit}
               />
-              <HourlyForecast hourly={weather.hourly} unit={state.unit} />
+              <HourlyForecast hourly={weather.hourly} currentTime={weather.current.time} unit={state.unit} />
               <WeatherDetails daily={weather.daily} />
               <DailyForecast daily={weather.daily} unit={state.unit} />
             </>
